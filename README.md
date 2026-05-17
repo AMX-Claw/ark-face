@@ -56,7 +56,7 @@ Targets iOS 10 Safari (iPhone 5c). No ES modules, no CSS Grid, no fetch(). Uses 
 ### 2026-05-08 — Usage 进度条 z-index 修复 + 生日模式
 - 修复 xk-overlay 覆盖 usage-wrap 的 z-index 问题（加 position:relative + z-index:10）
 - usage-5h 默认显示 "5h --%" 占位符
-- 生日模式：5/14 AEST 自动激活，背景变暖粉紫、标签变 "ARK ♡ XIAOYU"、banner 呼吸灯 "♡ 小玉生日快乐 ♡"
+- 生日模式：可配置日期自动激活，背景变暖粉紫、自定义 banner 呼吸灯
 
 ### 2026-05-07 — Plan usage 进度条
 - POST /state 新增 `usage` 字段：`{five_hour: number, seven_day: number, resets_at: number}`
