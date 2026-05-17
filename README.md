@@ -1,6 +1,6 @@
 # ark-face
 
-Octopus mood display for iPhone 5c. Shows Ark's current mood/status as an animated SVG octopus on a dark ocean background.
+Mood display for iPhone 5c. Shows your AI's real-time status as an animated pixel clawd on a dark ocean background.
 
 ![ark-face screenshot](screenshot.png)
 
