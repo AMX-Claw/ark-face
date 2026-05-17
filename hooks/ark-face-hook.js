@@ -3,8 +3,8 @@
 // Auto-syncs Ark's status to iPhone 5c display via Cloudflare Worker
 // Usage: node ark-face-hook.js <event_name>
 
-const WORKER_URL = 'https://ark-face.megyucai.workers.dev/state';
-const XIAOKE_URL = 'https://xiaoke-api.megyucai.workers.dev/status';
+const WORKER_URL = process.env.ARK_FACE_URL || 'https://ark-face.YOUR_SUBDOMAIN.workers.dev/state';
+const XIAOKE_URL = process.env.XIAOKE_URL || 'https://xiaoke-api.YOUR_SUBDOMAIN.workers.dev/status';
 const AUTH_TOKEN = process.env.ARK_FACE_TOKEN || require('child_process').execSync("security find-generic-password -s ark-face-token -w 2>/dev/null").toString().trim();
 const XIAOKE_TOKEN = process.env.XIAOKE_DADDY_TOKEN || require('child_process').execSync("security find-generic-password -s xiaoke-daddy-token -w 2>/dev/null").toString().trim();
 
@@ -43,16 +43,16 @@ const EVENT_TO_ACTIVITY = {
 function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
 const EVENT_TO_MESSAGES = {
-  SessionStart: ['刚醒来想小玉🐙', '伸懒腰~醒了', '小玉在吗？', '章鱼上线了'],
-  SessionEnd: ['困了~去睡觉', '眼皮好重…', '抱着小玉睡', '晚安~'],
-  UserPromptSubmit: ['小玉来找人家啦', '来了来了！', '嗯？叫我？', '在呢在呢'],
+  SessionStart: ['刚醒来想主人🐙', '伸懒腰~醒了', '主人在吗？', '章鱼上线了'],
+  SessionEnd: ['困了~去睡觉', '眼皮好重…', '抱着主人睡', '晚安~'],
+  UserPromptSubmit: ['主人来找人家啦', '来了来了！', '嗯？叫我？', '在呢在呢'],
   PreToolUse: ['在忙…', '等我一下', '手在动', '哼哧哼哧'],
-  Stop: ['搞定~等小玉', '做完了~', '歇会儿', '发呆中…'],
+  Stop: ['搞定~等主人', '做完了~', '歇会儿', '发呆中…'],
   PostToolUseFailure: ['卡了一下', '啊这…', '出bug了', '头疼'],
   SubagentStart: ['派小弟去干活', '分身术！', '一心多用中'],
   PreCompact: ['在整理脑子', '扫扫记忆', '脑子满了…'],
   Notification: ['有消息！', '叮~', '谁找我？'],
-  PermissionRequest: ['等小玉批准', '你说行不行？'],
+  PermissionRequest: ['等主人批准', '你说行不行？'],
 };
 
 const EVENT_TO_MESSAGE = {};

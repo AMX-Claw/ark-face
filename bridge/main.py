@@ -28,7 +28,7 @@ NORDIC_UART_SERVICE = "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
 NORDIC_UART_RX      = "6e400002-b5a3-f393-e0a9-e50e24dcca9e"  # desktop -> us (write)
 NORDIC_UART_TX      = "6e400003-b5a3-f393-e0a9-e50e24dcca9e"  # us -> desktop (notify)
 
-ARK_FACE_URL   = os.environ.get("ARK_FACE_URL",   "https://ark-face.megyucai.workers.dev/state")
+ARK_FACE_URL   = os.environ.get("ARK_FACE_URL",   "https://ark-face.YOUR_SUBDOMAIN.workers.dev/state")
 ARK_FACE_TOKEN = os.environ.get("ARK_FACE_TOKEN")
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
