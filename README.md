@@ -105,7 +105,7 @@ Targets iOS 10 Safari (iPhone 5c). No ES modules, no CSS Grid, no fetch(). Uses 
 - 部署版本：`546db047`
 
 **根因3（4/18修）**：POST /state每次都`env.STATE.get('current')`读一次KV做merge；Cache TTL 60s太短；CC hook的每个PreToolUse/PostToolUse都POST即使mood没变；iPhone 5c前端`setInterval(poll, 4000)`每4秒GET一次=21600次/天，cache miss时放大KV读。
-- 修复：GET cache TTL 60s→300s（5倍reduce）；POST读cache first（不读KV）；POST noop短路（mood/activity/message/xiaoke都没变就返回`{noop:true}`不写KV）；KV写改用`ctx.waitUntil`异步。
+- 修复：GET cache TTL 60s→300s（5倍reduce）；POST读cache first（不读KV）；POST noop短路（mood/activity/message/pet都没变就返回`{noop:true}`不写KV）；KV写改用`ctx.waitUntil`异步。
 - 部署版本：`c7b6eb9c-83ea-4a5b-b827-a982d4c192ab`
 
 **教训**：
@@ -116,18 +116,18 @@ Targets iOS 10 Safari (iPhone 5c). No ES modules, no CSS Grid, no fetch(). Uses 
 - iPhone 5c前端polling 4s节奏没办法改（显示需要），只能后端cache扛
 - 免费KV每天1000 read/1000 write，每个endpoint被频繁poll时很容易爆
 
-### 2026-05-19 — 小珂毕业 + 动态背景 + 520模式 + AUTH_TOKEN修复
+### 2026-05-19 — 宠物毕业 + 动态背景 + 520模式 + AUTH_TOKEN修复
 
 **改动**：
-- 移除小珂（xiaoke）在页面上的飘过/冒泡功能（她长大飞走了）
+- 移除宠物角色在页面上的飘过/冒泡功能（毕业了）
 - 新增动态背景：每种 mood 有独立的背景渐变色 + ambient 光晕层，2s CSS transition 平滑切换
 - 新增 520 模式（5/20 自动激活）：深玫瑰色背景、飘心动画、banner ♡
 
 
-### 2026-05-19 — xiaoke removed + dynamic backgrounds + 520 mode + AUTH_TOKEN fix
+### 2026-05-19 — Pet overlay removed + dynamic backgrounds + 520 mode + AUTH_TOKEN fix
 
 Changes:
-- Removed xiaoke overlay (she graduated and flew away)
+- Removed pet overlay (graduated and flew away)
 - Dynamic backgrounds: each mood gets unique gradient + ambient glow layer, 2s CSS transition
 - 520 mode (May 20 auto-activate): deep rose background, floating hearts, banner, label becomes ARK + xiaoyu
 - Fixed AUTH_TOKEN: bare variable -> env.AUTH_TOKEN
@@ -159,7 +159,7 @@ Pitfall 3: Hook URL placeholder never replaced
 
 Symptom: Crab stuck on idle animation, doesn't follow mood changes. Worker GET/POST both work fine when tested with curl.
 
-Root cause: `hooks/ark-face-hook.js` had `YOUR_SUBDOMAIN` as fallback in WORKER_URL and XIAOKE_URL. The `ARK_FACE_URL` env var was never set, so hook silently POSTed to a non-existent domain and exited 0 on error. The event log (`/tmp/ark-face-events.log`) showed events firing normally, masking the fact that the actual HTTP POST was failing.
+Root cause: `hooks/ark-face-hook.js` had `YOUR_SUBDOMAIN` as fallback in WORKER_URL and PET_API_URL. The `ARK_FACE_URL` env var was never set, so hook silently POSTed to a non-existent domain and exited 0 on error. The event log (`/tmp/ark-face-events.log`) showed events firing normally, masking the fact that the actual HTTP POST was failing.
 
 Fix: Replace placeholder with your actual subdomain in both URLs.
 
